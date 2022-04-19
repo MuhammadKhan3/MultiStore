@@ -1,0 +1,23 @@
+.table{
+    width: 82% !important;
+    margin-left: 15%;
+    height: auto;
+}
+.text-field{
+    background-color: white !important;
+    height: 30px;
+    width: 180px !important;
+}
+.search-heading{
+    margin-left: 900px;
+    position: absolute;
+    left: 45px;
+}
+.norecord{
+  position: absolute;
+  left: 645px;
+  top: 120px;
+}
+.gen-btn{
+    margin-left: 3px;
+}

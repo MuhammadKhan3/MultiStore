@@ -1,0 +1,7 @@
+.message-container{
+    width: 465px;
+    margin-left: 6px;
+}
+.message-textarea{
+    height: 120px !important;
+}

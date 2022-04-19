@@ -1,0 +1,148 @@
+.main-container{
+    border: 1px solid green;
+    z-index: 999;
+    display: block;
+}
+.main-cotainer-innner{
+    width: 980px;
+    height: 90px;
+    margin-left: 28%;
+}
+.prod-list{
+    list-style: none;
+    width: 470px;
+    font-size: 25px;
+    border: 1px solid #F5F5F5;
+    background-color: #FFFFFF;
+    margin-top: 2px;
+}
+.prod-list:hover{
+    cursor: pointer;
+}
+.sale-date{
+    padding: 10px !important;
+    font-size: 18px !important;
+    margin-left:5px;
+}
+.prodlist-container{
+    display: block;
+    position: relative;
+    z-index:9999;
+    margin-left: -19px;
+}
+.border-bottom-button{
+    display:block;
+    margin-left: -9px;
+    width: 998px;
+    position: relative;
+    z-index: -999;
+    padding-top: 4px;
+}
+.table-container{
+    position: relative;
+    top: 10px;
+    left: -135px;
+}
+.border-bottom-table{
+    display:block;
+    /* margin-left: px; */
+    width: 800px;
+    position: absolute;
+    z-index: -999;
+    padding-top: 4px;
+}
+.customer-input{
+    margin-top: -26px;
+}
+.inputs-infomation{
+    padding: 10px !important;
+}
+.border-span{
+    display:block;
+    margin-left: -284px;
+    width: 999px;
+
+    position: relative;
+    z-index: -999;
+}
+.form-row{
+    display: block !important;
+    float: none;
+    width: 45%;
+}
+.searchbar-label{
+
+    display: inline-block;
+    float: left !important;
+}
+.search-bar{
+    width: 500px !important;
+    float: left;
+}
+
+/* counter */
+
+
+.plus {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    color: white;
+    width: 30px;
+    height: 30px;
+    font: 30px/1 Arial,sans-serif;
+    text-align: center;
+    border-radius: 50%;
+    padding: 2px !important;
+    margin-top: 5px;
+    margin-right: 3px;
+    }
+.orderbtn{
+    margin-left: 500px;
+}
+.minus{
+
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    color: white;
+    width: 30px;
+    height: 30px;
+    font: 30px/1 Arial,sans-serif;
+    padding-top: -3px;
+    text-align: center;
+    border-radius: 50%;
+    background-clip: padding-box;
+    padding: 1px !important;
+    margin-left: -135px;
+    margin-top: 5px;
+
+}
+
+.minus:hover{
+    background-color: #717fe0 !important;
+}
+.plus:hover{
+    background-color: #717fe0 !important;
+}
+.plus:active{
+    background-color: lightgreen !important;
+}
+.minus:active{
+    background-color: lightgreen !important;
+}
+/*Prevent text selection*/
+
+input{  
+    border: 0;
+    width: 2%;
+}
+nput::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input:disabled{
+    background-color:white;
+}
+         

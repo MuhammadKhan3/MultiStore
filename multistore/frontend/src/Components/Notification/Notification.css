@@ -1,0 +1,16 @@
+.close{
+    border: none;
+    border-radius: 40%;
+    font-size: 30px;
+}
+body{
+    position: relative;
+    z-index: -999;
+}
+.modal-container{
+    position: absolute;
+    z-index: 999px;
+    top: 0;
+    left: 36%;
+    width: 400px;
+}

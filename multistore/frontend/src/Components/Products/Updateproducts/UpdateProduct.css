@@ -1,0 +1,143 @@
+.insert-container{
+    width: 1000px;
+    margin-left: 23%;
+    padding: 10px;
+    margin-top: 10px;
+    height: 1050px !important;
+}
+.image-text{
+    display: inline-block;
+}
+.alert-description{
+    width: 20px !important;
+}
+.general-filed{
+    width: 220px;
+    float: left;
+    height: 70px;
+    margin-top: 20px;
+    padding-left: 10px;
+}
+.description-filed{
+    width: 870px;
+    padding: 10px;
+    float: left;
+}
+.description-container{
+    height: 150px;
+    margin-top: 20px;
+    float: left;
+    padding-left: 10px;
+}
+.bt{
+    margin-left: 5px;
+}
+.productname{
+    float: left;
+}
+.dropdown-category{
+    float: left;
+    width: 200px;
+    margin-left: 45px;
+}
+.quantity{
+    float: left;
+}
+.unit-category{
+    width: 200px;
+    float: left;
+    display: block;
+    margin-left: 45px;
+}
+.saleprice{
+    width: 200px;
+    float: left;
+    display: block;
+}
+.purchaseprice{
+    width: 200px;
+    float: left;
+    display: block;
+    margin-left: 55px;
+}
+.serialnumber{
+    width: 200px;
+    float: left;
+    display: block;
+}
+.barcode{
+    width: 200px;
+    float: left;
+    display: block;
+    margin-left: 55px;
+}
+.btns-container{
+    margin-top: 180px;
+    position: relative !important;
+    display: inline-block;
+}
+.label-images{
+    margin-left: -870px !important;
+    font-size: 18px;
+}
+.images-container-label{
+    width: 840px;
+    height: 120px;
+}
+.images-container{
+    width: 1000px;
+    height: 200px;
+    margin-top: 30px;
+    float: left;;
+}
+.overflow-check{
+    border: 1px solid #000000;
+    height: 150px;
+    width: 870px;
+
+  white-space: nowrap;
+  float: left;
+  margin-top: 25px;
+    margin-left: 10px;
+    overflow: scroll;
+}
+.image-list{
+    margin-left: 145px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin-top: -175px;
+    margin-left:5px;
+}
+.close-btn{
+    margin-top: -345px !important;
+    position: relative;
+    top: -120px;
+    left: 104px;
+    background-color: red !important;
+    z-index: 9999 !important;
+}
+.imageinner{
+    display: inline-block;
+}
+
+.image-container{
+    position: absolute;
+    height: 150px;
+    border: 1px solid black;
+    width: 870px;
+    top: 885px;
+    margin-left: 10px;
+    overflow-x: scroll;
+}
+.image-placeholder{
+    opacity: 0.5;
+    margin-left: 40%;
+    margin-top: 50px;
+    font-size: 30px;
+}
+.image-container-inner-url{
+    position: relative;
+    display: inline-block;
+    margin-top: 145px;
+}

@@ -1,0 +1,16 @@
+.card-container{
+    margin-left: 260px;
+}
+.text-delete{
+    font-size: 48px;
+}
+.date {
+    font-size: 14px;
+}
+.cards{
+
+    display: inline-block;
+    float: left;
+    margin-left: 15px;
+    margin-top: 20px;
+}
