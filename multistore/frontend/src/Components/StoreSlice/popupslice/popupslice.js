@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState={flag:false,msg:'',title:''}
+const initialState={flag:false,msg:[],title:''}
 const Popupslice=createSlice({
     name:'popupslice',
     initialState,

@@ -425,7 +425,13 @@ exports.getcities=(req,res,next)=>{
 //.....insert cities in database api
 
 exports.insertfeature=(req,res,next)=>{
-  
+  const errors=validationResult(req);
+  if(!errors.isEmpty()){
+    const err=new Error('Insert '+req.body.state+"issue");
+    err.data=errors.array();
+    err.flag=true;
+    throw err;
+  }
   const state=req.body.state;
   if(state==='category'){
     console.log('category.')
@@ -624,6 +630,14 @@ exports.getstores=(req,res,next)=>{
 }
 
 exports.updateproduct=(req,res,next)=>{
+  const errors=validationResult(req);
+  if(!errors.isEmpty()){
+    const err=new Error('Edit product issue');
+    err.statusCode=500;
+    err.flag=true;
+    err.data=errors.array();
+    throw err;
+  }
   const productcode=req.body.productcode;
   const productname=req.body.productname;
   const quantity=req.body.quantity;
@@ -679,7 +693,7 @@ exports.updateproduct=(req,res,next)=>{
     }).catch(error=>{
       const err=new Error('Update Supplier error');
       err.statusCode=500;
-      err.data=error;
+      err.data=error.ar;
       throw err;
     })
   }).then((prod)=>{
@@ -722,7 +736,7 @@ exports.updateproduct=(req,res,next)=>{
         // })
         // fs.unlinkSync();
       }
-      res.json({title:'Update  product ',msg:"Succefully update the product",flag:true})
+      res.json({title:'Update  product ',msg:[{msg:"Succefully update the product"}],flag:true})
   })
   .catch(error=>{
     const err=new Error('Update Product  product error');
@@ -868,7 +882,7 @@ exports.insertproduct=(req,res,next)=>{
         productId:productid,
       });
       });
-      res.json({title:'create product',msg:"Succefully create",flag:true})
+      res.json({title:'create product',msg:[{msg:"Succefully create"}],flag:true})
     }
   }).catch((error)=>{
     const err=new Error('Product insert Error');
@@ -932,11 +946,13 @@ exports.home=(req,res,next)=>{
 }
 
 exports.salerecord=(req,res,next)=>{
-  let products,todaysale=0,customers;
+  let products,todaysale=0,customers,quantity=[];
   Products.findAll({
     attributes:[[sequelize.fn('sum',sequelize.col('unitsinstock')),'totalitems']],
   })
   .then(quantity=>{
+    console.log('quantity.',quantity);
+    quantity=quantity;
     InvoiceDetails
     .findAll({
       attributes:{
@@ -986,9 +1002,10 @@ exports.salerecord=(req,res,next)=>{
           [Op.gte]:new Date(new Date()-(24*60*60*1000)),
           [Op.lte]:new Date(),
         }}}).then(customercount=>{
-          console.log('qua.',totalprice[0])
-          const saleitems=totalprice[0].dataValues.invoice.order.orderitems[0].dataValues.saleitems;
-          res.json({customers:customercount || 0,totalsale:totalprice[0].dataValues.totalprice || 0,totalsaleitems:saleitems || 0,availableitems:quantity[0].dataValues.totalitems || 0})
+          console.log('qua.',totalprice[0].dataValues.invoice.order.orderitems[0].dataValues.saleitems);
+          // let saleitems;
+          // const saleitems=totalprice[0].dataValues.invoice.order.orderitems[0].dataValues.saleitems;
+           res.json({customers:customercount || 0,totalsale:totalprice[0].dataValues.totalprice || 0,totalsaleitems:totalprice[0].dataValues.invoice.order.orderitems[0].dataValues.saleitems || 0,availableitems:quantity[0].dataValues.totalitems || 0})
         }).catch()        
      });
   }).then(()=>{

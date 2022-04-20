@@ -12,8 +12,14 @@ export const UpdateProductsThunk = (obj) => {
                     authorization:'Bearer '+cookies.get('token')
                 }
             }) 
-            dispatch(popupaction.setpopupdata({title:response.data.title,msg:response.data.msg,flag:response.data.flag}))
+            console.log(response);
             dispatch(UpdateFetchProductThunk(cookies.get('productid')));
+            if(response.data.errors){
+            console.log(response.data);
+                dispatch(popupaction.setpopupdata({title:response.data.message,msg:response.data.errors,flag:response.data.errorflag}))
+            }else{
+                dispatch(popupaction.setpopupdata({title:response.data.title,msg:response.data.msg,flag:response.data.flag}))
+            }
 
             await console.log(response);
         }

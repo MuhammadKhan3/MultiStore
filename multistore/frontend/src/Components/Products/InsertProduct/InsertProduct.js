@@ -30,7 +30,7 @@ const validationSchema=yup.object({
   address:yup.string().required('address is required'),
   companyname:yup.string().required('companyname is required'),
   description:yup.string().required('description is required'),
-  images:yup.array().min(1,"minimum length is file is one").max(5,'maximum file you insert the 5').required('File is required'),
+  // images:yup.array().min(1,"minimum length is file is one").max(5,'maximum file you insert the 5').required('File is required'),
 });
 const InsertProduct = () => {
   const [flag,setflag]=useState(true);
@@ -89,9 +89,11 @@ const InsertProduct = () => {
         obj.append('description',formik.values.description);
         obj.append('company',formik.values.companyname);
         dispatch(spinneraction.setspinner(false))
-        dispatch(InsertThunk(obj));
+
+        dispatch(InsertThunk(obj,formik));
+        formik.values.images.splice(0,formik.values.images.length)
+         console.log(formik.values.images) 
         // window.location.reload();
-  
     };
   }
   const formik=useFormik({
@@ -249,7 +251,7 @@ return (<>
              <input type="file" onChange={Productimage}  onBlur={formik.handleBlur} name='images' accept="image/*" id="images" hidden multiple/> 
           </label> 
           <div>   
-          {imglen>0 && formik.values.images.map((value,i)=>{
+          {formik.values.images.length>0 && formik.values.images.map((value,i)=>{
            return ( 
             <div className="imageinner" key={value+i}>
               <button id={i} type="button" onClick={removeimage} className="close-btn btn-close" aria-label="Close"></button>                      

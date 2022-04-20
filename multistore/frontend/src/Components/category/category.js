@@ -35,7 +35,7 @@ const Category = () => {
         dispatch(spinneraction.setspinner(false))
         console.log(obj);
         dispatch(featureThunk(obj))
-        formik.resetForm();
+        // formik.resetForm();
     }
     const formik=useFormik({
        initialValues:{

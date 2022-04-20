@@ -101,6 +101,7 @@ export const UpdateProduct = () => {
         obj.append("address",formik.values.address);
         obj.append('description',formik.values.description);
         dispatch(UpdateProductsThunk(obj));
+        setimage([])
         // window.location.reload(false);
       };
     }

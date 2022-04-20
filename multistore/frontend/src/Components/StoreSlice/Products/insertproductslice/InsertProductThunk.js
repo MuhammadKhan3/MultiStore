@@ -3,7 +3,7 @@ import { Cookies } from "react-cookie";
 import { popupaction } from "../../popupslice/popupslice";
 import { spinneraction } from "../../spinnerslice/spinnerslice";
 const cookie=new Cookies();
-const InsertThunk=(obj)=>{
+const InsertThunk=(obj,formik)=>{
     return async(dispatch)=>{
         const Insert=async ()=>{
                 console.log(cookie.get('token'));
@@ -13,13 +13,14 @@ const InsertThunk=(obj)=>{
                     }
                 });
                 if(response.data.errors){
-                    dispatch(popupaction.setpopupdata({title:response.data.message,msg:response.data.errors[0].msg,flag:true}));
+                    dispatch(popupaction.setpopupdata({title:response.data.message,msg:response.data.errors,flag:true}));
                     await dispatch(spinneraction.setspinner(true));
  
                 }else{
                     const flag=response.data.flag;
                     dispatch(spinneraction.setspinner(flag));
                     dispatch(popupaction.setpopupdata({title:response.data.title,msg:response.data.msg,flag:response.data.flag}));
+                    formik.resetForm();
                 }  
         }
         Insert();

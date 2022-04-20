@@ -21,6 +21,7 @@ function Dashboard() {
     
     useEffect(() => {
         dispatch(Salethunk());
+        console.log('hi')
     }, [])
     const plushadler=()=>{
         setflag(!showflag)

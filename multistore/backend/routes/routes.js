@@ -87,7 +87,7 @@ router.post('/insert-product',isauthenticated,MulterMultiple.array('images',5),[
     .isLength({min:11, max:11}).withMessage('contact no will be 11'),
     body('address').not().isEmpty().withMessage('address will be street no and location'),
     body('description').not().isEmpty().withMessage('description not empty'),
-    body('description').not().isEmpty().withMessage('description not empty'),
+    body('company').not().isEmpty().withMessage('company name not empty'),
 ],maincontrollers.insertproduct);
 router.post('/search-products',isauthenticated,[
     body('key')
@@ -96,7 +96,14 @@ router.post('/search-products',isauthenticated,[
     .withMessage('Length greater than the 30')
 ],maincontrollers.searchproducts);
 router.post('/get-product',isauthenticated,[body('id').not().isEmpty().withMessage('product id show not null')],maincontrollers.getproduct);
-router.post('/insert-feature',maincontrollers.insertfeature)
+router.post('/insert-feature',isauthenticated,[
+    
+ body('state').not().isEmpty(),
+ body('name').not().isEmpty().isLength({min:5,max:10000})
+ .withMessage('length will be greater than 5 and less than 100'),
+ body('urduname').not().isEmpty().isLength({min:5,max:10000})
+ .withMessage('length will be greater than 5 and less than 100')
+],maincontrollers.insertfeature)
 router.post('/get-products',maincontrollers.getProducts);
 router.post('/searchcart-product',maincontrollers.searchcartproducts);
 router.post('/insert-cart',maincontrollers.insertcart);
@@ -116,7 +123,43 @@ router.get('/get-stores',maincontrollers.getstores);
 router.get('/insert-city',maincontrollers.insertcity);
 router.get('/sale-record',maincontrollers.salerecord);
 
-router.put('/edit-product',MulterMultiple.array('productimage',5),maincontrollers.updateproduct);
+router.put('/edit-product',isauthenticated,MulterMultiple.array('productimage',5),[
+    body('productname').trim().not().isEmpty().isLength({max:100}).withMessage('Length in product name'),
+    body('productcode').trim().not().isEmpty().isLength({max:100}).withMessage('Length in product code')
+    .custom((value,{req})=>{
+        console.log('hei')
+    console.log('id.',req.body.id)
+     return   Products.findOne({where:{id:req.body.id}})
+        .then(product=>{
+            console.log('prod.',product);
+             if(product.productcode!==value){
+                return  Promise.reject('you not change the product code');
+             }
+        })
+        
+    }),
+    body('quantity').isInt({min:1,max:10000000000})
+    .withMessage('Your quantity will be greater than 1 and less than 10000000000'),
+    body('categoryid').trim().not().isEmpty().withMessage('Category id is required'),
+    body('unitid').trim().not().isEmpty().withMessage('Category id is required'),
+    body('storeid').trim().not().isEmpty().withMessage('store id is required'),
+    body('saleprice').trim().not().isEmpty().withMessage('kindly field the saleprice')
+    .isFloat('kidly field the decimal number'),
+    body('purchaseprice').trim().not().isEmpty().withMessage('purchase price is required')
+    .custom((value,{req})=>{
+        if(req.body.saleprice<value){
+             throw new Error('sale price will be greater than purchase price')
+        }
+        return  true;
+    }),
+    body('barcode').trim().not().isEmpty().withMessage('barcode is not empty'),
+    body('supplier').trim().not().isEmpty().withMessage('supplier is required').isAlphanumeric(),
+    body('contactno').trim().not().isEmpty().withMessage('contact is required').isNumeric().withMessage('value will be numeric')
+    .isLength({min:11, max:11}).withMessage('contact no will be 11'),
+    body('address').not().isEmpty().withMessage('address will be street no and location'),
+    body('description').not().isEmpty().withMessage('description not empty'),
+    body('companyname').not().isEmpty().withMessage('company name is required'),
+],maincontrollers.updateproduct);
 
 router.get('/',maincontrollers.home);
 

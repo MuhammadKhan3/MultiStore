@@ -26,7 +26,9 @@ return(<>{flag && <div className="popup-container modal fade show" style={{
       </button>
     </div>
     <div className="modal-body">
-      <p>{msg}</p>
+    {msg.map(value=>{
+    return  <p>{value.msg+'.'}</p>;
+    })}
     </div>
     <div className="modal-footer">
       {/* <button type="button" className="btn btn-success">Save changes</button> */}

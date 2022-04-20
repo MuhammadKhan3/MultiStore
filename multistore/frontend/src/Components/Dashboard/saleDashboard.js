@@ -47,7 +47,10 @@ const SaleDashboard = () => {
   }
 
   useEffect(() => {
-   setInterval(()=>{settime(new Date())},1000)
+
+   const intervalid=setInterval(()=>{settime(new Date())},1000)
+   console.log('hi')
+   return ()=>{ clearInterval(intervalid)}
   }, [time])
 
   const cartproducthandler= (e)=>{

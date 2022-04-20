@@ -23,6 +23,7 @@ const Salethunk =() => {
   return async (dispatch)=>{
       const fetchsalethunk=async ()=>{
           const response=await axios.get('http://localhost:8000/sale-record');
+          console.log(response.data)
           dispatch(saleaction.setSale(response.data));
       }
       fetchsalethunk();
