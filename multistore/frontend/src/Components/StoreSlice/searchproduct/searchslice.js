@@ -28,7 +28,7 @@ const SearchProductThunk=(data)=>{
     return async(dispatch)=>{
         const searchproduct=async ()=>{
             const response= await axios.post('http://localhost:8000/searchcart-product',data,{
-                header:{
+                headers:{
                     authorization:"Bearer "+cookies.get('token'),
                 }
             });

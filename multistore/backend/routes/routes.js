@@ -96,19 +96,32 @@ router.post('/search-products',isauthenticated,[
     .withMessage('Length greater than the 30')
 ],maincontrollers.searchproducts);
 router.post('/get-product',isauthenticated,[body('id').not().isEmpty().withMessage('product id show not null')],maincontrollers.getproduct);
-router.post('/insert-feature',isauthenticated,[
-    
- body('state').not().isEmpty(),
- body('name').not().isEmpty().isLength({min:5,max:10000})
- .withMessage('length will be greater than 5 and less than 100'),
- body('urduname').not().isEmpty().isLength({min:5,max:10000})
- .withMessage('length will be greater than 5 and less than 100')
-],maincontrollers.insertfeature)
+router.post('/insert-feature',isauthenticated,maincontrollers.insertfeature)
 router.post('/get-products',maincontrollers.getProducts);
-router.post('/searchcart-product',maincontrollers.searchcartproducts);
-router.post('/insert-cart',maincontrollers.insertcart);
+router.post('/searchcart-product',isauthenticated,maincontrollers.searchcartproducts);
+router.post('/insert-cart',isauthenticated,[
+    body('productId').not().isEmpty()
+    .custom((value)=>{
+        return Products.findOne({where:{id:value}})
+        .then(product=>{
+            console.log('produ.',product)
+            if(product.unitsinstock===0){
+              return Promise.reject('This product is not available in stock');
+            }
+        })
+    })
+],maincontrollers.insertcart);
 router.post('/post-quantity',maincontrollers.addquantity);
-router.post('/post-order',maincontrollers.postOrder);
+router.post('/post-order',isauthenticated,
+[
+    body('customername').trim().not().isEmpty().withMessage('Customer name is required').isAlpha(),
+    body('contactno').trim().optional({checkFalsy:true}).isAlpha(),
+    body('cartId').trim().not().isEmpty().withMessage('Carts will be required').isInt(),
+    body('employeeid').trim().not().isEmpty().withMessage('Employees will be required').isInt(),
+    // body('totalprice').not().isEmpty().withMessage('total price validation issue ').isDecimal(),
+]
+,
+maincontrollers.postOrder);
 router.post('/delete-cart',maincontrollers.deletecart);
 router.post('/search-product',maincontrollers.searchproduct);
 router.post('/add-stock',maincontrollers.addstock);

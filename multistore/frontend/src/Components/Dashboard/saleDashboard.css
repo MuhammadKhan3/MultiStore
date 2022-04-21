@@ -2,11 +2,21 @@
     border: 1px solid green;
     z-index: 999;
     display: block;
+    margin-top: 5px;
+}
+.price-td{
+    /* width: 30px; */
 }
 .main-cotainer-innner{
     width: 980px;
-    height: 90px;
+    height: 80px !important;
     margin-left: 28%;
+}
+.del-btn{
+    margin: 0px;
+    margin-left: -145px !important;
+    padding: 0px;
+
 }
 .prod-list{
     list-style: none;
@@ -15,12 +25,14 @@
     border: 1px solid #F5F5F5;
     background-color: #FFFFFF;
     margin-top: 2px;
+    /* z-index: 9999; */
+    /* position: fixed; */
 }
 .prod-list:hover{
     cursor: pointer;
 }
 .sale-date{
-    padding: 10px !important;
+    padding: 13px !important;
     font-size: 18px !important;
     margin-left:5px;
 }
@@ -32,8 +44,8 @@
 }
 .border-bottom-button{
     display:block;
-    margin-left: -9px;
-    width: 998px;
+    margin-left: -2px;
+    width: 1100px;
     position: relative;
     z-index: -999;
     padding-top: 4px;
@@ -46,7 +58,7 @@
 .border-bottom-table{
     display:block;
     /* margin-left: px; */
-    width: 800px;
+    width: 900px;
     position: absolute;
     z-index: -999;
     padding-top: 4px;
@@ -59,16 +71,19 @@
 }
 .border-span{
     display:block;
-    margin-left: -284px;
-    width: 999px;
-
-    position: relative;
+    /* margin-left: px; */
+    width: 900px;
+    position: absolute;
     z-index: -999;
+    padding-top: 4px;
+    /* float: left; */
+   
 }
 .form-row{
     display: block !important;
     float: none;
     width: 45%;
+    margin-top: 10px;
 }
 .searchbar-label{
 
@@ -78,6 +93,7 @@
 .search-bar{
     width: 500px !important;
     float: left;
+    height: 45px;
 }
 
 /* counter */

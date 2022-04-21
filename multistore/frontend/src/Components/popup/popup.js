@@ -26,8 +26,8 @@ return(<>{flag && <div className="popup-container modal fade show" style={{
       </button>
     </div>
     <div className="modal-body">
-    {msg.map(value=>{
-    return  <p>{value.msg+'.'}</p>;
+    {msg.map((value,i)=>{
+    return  <p key={i}>{value.msg+'.'}</p>;
     })}
     </div>
     <div className="modal-footer">

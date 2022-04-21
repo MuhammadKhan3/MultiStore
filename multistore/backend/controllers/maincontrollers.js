@@ -25,6 +25,7 @@ const OrderItems = require('../model/order-items');
 const Invoice = require('../model/invoices');
 const InvoiceDetails = require('../model/invoice-details');
 const Stock = require('../model/stock');
+const { Console } = require('console');
 const Op=Sequelize.Op
 
 
@@ -96,16 +97,24 @@ exports.signup=(req,res,next)=>{
 }
 
 exports.insertcart=(req,res,next)=>{
+  
+  
+  const  errors=validationResult(req);
+  console.log('hit')
  const cartId=req.body.cartId;
  const productId=req.body.productId
  const quantity=req.body.quantity;
  const price=req.body.price
  const employeeid=req.body.EmployeeId;
+ if(!errors.isEmpty()){
+   const err=new Error("Insert cart error");
+   err.statusCode=404;
+   err.data=errors.array();
+   throw err;
+ }
  Products.findOne({where:{id:productId}}).then((product)=>{
-
    if(product.unitsinstock>0){
     if(!cartId){
-      console.log('if.')
            if(product.unitsinstock>0){
              Carts.create({
                EmployeeId:employeeid
@@ -121,8 +130,7 @@ exports.insertcart=(req,res,next)=>{
                    res.status(201).json({msg:"Succefully create the cart",cartId:cart.id,flag:true})
                    });
                    }).catch();
-           }       
-           
+           }                
      }else{
       CartItems.findAll({include:[{model:Products}],where:{cartId:cartId}}).then(cartitems=>{
              console.log(cartitems)
@@ -267,6 +275,16 @@ exports.getcart=async (req,res,next)=>{
   // })
 }
 exports.postOrder=(req,res,next)=>{
+ const errors=validationResult(req);
+ if(!errors.isEmpty()){
+   const err=new Error('Insert Order issue');
+   err.data=errors.array();
+   err.flag=true;
+   err.statusCode=501;
+   throw err;
+ }
+
+
  const cartId=req.body.cartId;
  const contactno=req.body.contactno;
  const customername=req.body.customername;
@@ -771,7 +789,7 @@ exports.getproduct=(req,res,next)=>{
 
 exports.getProducts=(req,res,next)=>{  
   const currentpage=Number(req.body.pagination) || 1;
-  console.log(currentpage);
+
   const errors=validationResult(req);
   if(!errors.isEmpty()){
     const err=new Error('Fetch products in edit error');
@@ -1002,10 +1020,12 @@ exports.salerecord=(req,res,next)=>{
           [Op.gte]:new Date(new Date()-(24*60*60*1000)),
           [Op.lte]:new Date(),
         }}}).then(customercount=>{
-          console.log('qua.',totalprice[0].dataValues.invoice.order.orderitems[0].dataValues.saleitems);
+          // console.log('qua.',totalprice[0].dataValues.invoice.order.orderitems[0].dataValues.saleitems);
           // let saleitems;
+          if(customercount && totalprice){
+            res.json({customers:customercount || 0,totalsale:totalprice[0].dataValues.totalprice || 0,totalsaleitems:totalprice[0].dataValues.invoice.order.orderitems[0].dataValues.saleitems || 0,availableitems:quantity[0].dataValues.totalitems || 0})
+          }
           // const saleitems=totalprice[0].dataValues.invoice.order.orderitems[0].dataValues.saleitems;
-           res.json({customers:customercount || 0,totalsale:totalprice[0].dataValues.totalprice || 0,totalsaleitems:totalprice[0].dataValues.invoice.order.orderitems[0].dataValues.saleitems || 0,availableitems:quantity[0].dataValues.totalitems || 0})
         }).catch()        
      });
   }).then(()=>{

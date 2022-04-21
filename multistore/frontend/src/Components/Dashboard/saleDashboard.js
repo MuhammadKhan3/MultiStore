@@ -49,7 +49,7 @@ const SaleDashboard = () => {
   useEffect(() => {
 
    const intervalid=setInterval(()=>{settime(new Date())},1000)
-   console.log('hi')
+  //  console.log('hi')
    return ()=>{ clearInterval(intervalid)}
   }, [time])
 
@@ -60,8 +60,8 @@ const SaleDashboard = () => {
    const id=e.currentTarget.value;
    const product=products.find(item=>item.id===id)
    const price=product.productdetail.saleunitprice;
-   const quantity=product.unitsinstock;
-   if(quantity>0){
+  //  const quantity=product.unitsinstock;
+
     const data={
       price:price,
       quantity:1,
@@ -70,16 +70,14 @@ const SaleDashboard = () => {
       EmployeeId:cookies.get('userid')
     }
     dispatch(addCartThuk(data));
-    setflag(true)
-   }else{
-    dispatch(popupaction.setpopupdata({flag:true,msg:'This product not availabe',title:'Quantity'}))
-   }
+    // setflag(true)
+  //  }else{
+    // dispatch(popupaction.setpopupdata({flag:true,msg:'This product not availabe',title:'Quantity'}))
+  //  }
   }
 
   const orderhandler=()=>{
-    console.log('order');
-    console.log(contactno);
-    console.log(name , paymentmethod ,paymentstatus);
+
     if(cookies.get('cartId') && name && parseInt(paymentmethod)>0 && parseInt(paymentstatus)>0){
       const obj={
         customername:name,
@@ -126,7 +124,7 @@ const SaleDashboard = () => {
      <div className='main-cotainer-innner'>
         <div className="form-row border-bottom border-secondary">
           <div className="col">
-            <input type="text" id='searchbar' className="search-bar form-control" placeholder="Search Product" value={inputvalue} onChange={searchhandler}/>
+            <input type="text" id='searchbar' options="autocompleteOptions" style={{display:'initial !important'}} autoComplete='false' className="search-bar form-control" placeholder="Search Product" value={inputvalue} onChange={searchhandler}/>
           </div>
         </div>
         <span className="sale-date badge bg-light text-dark">{time.toLocaleDateString('en-US')+' '+time.toLocaleTimeString('en-US')}</span>
@@ -137,7 +135,7 @@ const SaleDashboard = () => {
             }):<p>No Record Found</p>}
           </ul>
         </div>
-       <span className='border-span border-bottom border-secondary'></span>
+       {/* <span className='border-span border-bottom border-secondary'></span> */}
        </div>
       <div className="input-group customer-input">
           <span className="input-group-text">Customer Name or Contact No</span>
@@ -151,6 +149,7 @@ const SaleDashboard = () => {
           />
       </div>
       <span className='border-bottom-button border-bottom border-secondary'></span>
+      {/* {carts.length>0 && */}
        <div className='table-container'>
         <table className="table table-Secondary ">
           <thead>
@@ -169,15 +168,18 @@ const SaleDashboard = () => {
               <td>{cart.product.name}</td>
               <td>{cart.price}</td>
               <td>{cart.quantity}</td>
-              <td>{cart.totalprice}</td>
+              <td className='price-td'>{cart.totalprice}</td>
               
                 <td className="minus bg-success"  onClick={()=>{counterhandler('minus',cart.id)}}>-</td>
                 <td className="plus bg-success"   onClick={()=>{counterhandler('plus',cart.id)}}>+</td>
                 {/* <img src={trash} onClick={()=>{deletecart(cart.id,cart.productId)}} style={{width:'35px',backgroundColor:"red"}} alt='trash'/> */}
-                <button  onClick={()=>{deletecart(cart.id,cart.productId,cart.quantity)}} className='btn btn-outline-danger'>Delete</button>
+                <td className=' btn btn-outline-danger' onClick={()=>{deletecart(cart.id,cart.productId,cart.quantity)}}>
+                Delete
+                   {/* <button  onClick={()=>{deletecart(cart.id,cart.productId,cart.quantity)}} className=''>Delete</button> */}
+                </td>
             </tr>
             })}
-       <tr className='border-bottom-table border-bottom border-secondary'></tr>
+       {/* <tr className='border-bottom-table border-bottom border-secondary'></tr> */}
 
        {carts.length>=1 &&        <tr>
               <th scope="col">#</th>
@@ -189,6 +191,7 @@ const SaleDashboard = () => {
           </tbody>
         </table>
        </div>
+       {/* } */}
        {carts.length>=1 &&
        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" className="orderbtn btn btn-outline-success" onClick={orderhandler}>Order Now</button>
        }
